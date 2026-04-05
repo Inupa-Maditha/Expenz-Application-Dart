@@ -11,6 +11,42 @@ class UserDataScreen extends StatefulWidget {
 }
 
 class _UserDataScreenState extends State<UserDataScreen> {
+  bool _isViewConfirmPassword = true;
+  bool _isViewPassword = true;
+  bool _isChecked = false;
+
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  late String _enteredName;
+  late String _enteredEmail;
+  late String _enteredPassword;
+  late bool _isPasswordsMatched;
+
+  final _isValidName = RegExp(r'^[A-Za-z ]{3,}$');
+  final _isValidEmail = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
+  final _isValidPassword = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$');
+
+  final _nameErrorMsg =
+      'Please enter your full name (letters and spaces only, minimum 3 characters)';
+  final _emailErrorMsg = 'Please enter a valid email address (e.g. example@gmail.com)';
+  final _passwordErrorMsg =
+      'Password must include least 8 characters, numbers, uppercase & lowercase letters';
+  final _confirmPasswordErrorMsg =
+      'Passwords do not match. Please re-enter your password';
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,43 +58,114 @@ class _UserDataScreenState extends State<UserDataScreen> {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Enter your personal details",
+                "Enter your \npersonal details",
                 style: TextStyle(
-                  fontSize: 44,
+                  fontSize: 25,
                   color: kBlackColor,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               SizedBox(height: kDefaultPadding * 2),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Name",
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-                ),
-              ),
-              SizedBox(height: kDefaultPadding),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-                ),
-              ),
-              SizedBox(height: kDefaultPadding),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Password",
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-                ),
-              ),
-              SizedBox(height: kDefaultPadding),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Confirm Password",
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _nameController,
+                      validator: (value) {
+                        _enteredName = _nameController.text;
+                        if (!_isValidName.hasMatch(_nameController.text)) {
+                          return _nameErrorMsg;
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Name",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        contentPadding: EdgeInsets.all(20),
+                      ),
+                    ),
+                    SizedBox(height: kDefaultPadding),
+                    TextFormField(
+                      controller: _emailController,
+                      validator: (value) {
+                        _enteredEmail = _emailController.text;
+                        if (!_isValidEmail.hasMatch(_emailController.text)) {
+                          return _emailErrorMsg;
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Email",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        contentPadding: EdgeInsets.all(20),
+                      ),
+                    ),
+                    SizedBox(height: kDefaultPadding),
+                    TextFormField(
+                      controller: _passwordController,
+                      validator: (value) {
+                        _enteredPassword = _passwordController.text;
+                        if (!_isValidPassword.hasMatch(_passwordController.text)) {
+                          return _passwordErrorMsg;
+                        }
+                        return null;
+                      },
+                      obscureText: _isViewPassword,
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _isViewPassword = !_isViewPassword;
+                            });
+                          },
+                          child: Icon(Icons.remove_red_eye_outlined),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        contentPadding: EdgeInsets.all(20),
+                      ),
+                    ),
+                    SizedBox(height: kDefaultPadding),
+                    TextFormField(
+                      controller: _confirmPasswordController,
+                      validator: (value) {
+                        _enteredPassword = _passwordController.text;
+                        _isPasswordsMatched =
+                            _enteredPassword == _confirmPasswordController.text;
+                        if (!_isPasswordsMatched) {
+                          return _confirmPasswordErrorMsg;
+                        }
+                        return null;
+                      },
+                      obscureText: _isViewConfirmPassword,
+                      decoration: InputDecoration(
+                        hintText: "Confirm Password",
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isViewConfirmPassword = !_isViewConfirmPassword;
+                            });
+                          },
+                          child: Icon(Icons.remove_red_eye_outlined),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        contentPadding: EdgeInsets.all(20),
+                      ),
+                    ),
+                    SizedBox(height: kDefaultPadding),
+                  ],
                 ),
               ),
               SizedBox(height: kDefaultPadding),
@@ -69,11 +176,31 @@ class _UserDataScreenState extends State<UserDataScreen> {
                     "Remember Me for the next time",
                     style: TextStyle(fontSize: 18, color: kGrayColor),
                   ),
-                  Icon(Icons.toggle_off, size: 50, color: kMainColor),
+                  Checkbox(
+                    activeColor: kMainColor,
+                    value: _isChecked,
+                    onChanged: (value) {
+                      setState(() {
+                        _isChecked = !_isChecked;
+                      });
+                    },
+                  ),
                 ],
               ),
               SizedBox(height: kDefaultPadding),
-              CustomButton(buttonName: "Next", buttonColor: kMainColor),
+              InkWell(
+                onTap: () {
+                  _formKey.currentState!.validate();
+                  if (_formKey.currentState!.validate()) {
+                    print(_enteredName);
+                    print(_enteredEmail);
+                    print(_isPasswordsMatched);
+                    print(_enteredPassword);
+                    print(_isChecked);
+                  }
+                },
+                child: CustomButton(buttonName: "Next", buttonColor: kMainColor),
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.08),
             ],
           ),
