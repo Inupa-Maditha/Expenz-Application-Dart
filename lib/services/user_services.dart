@@ -34,4 +34,11 @@ class UserServices {
     String? username = pref.getString("username");
     return username != null;
   }
+
+  static Future<Map<String, String>> getUserNameAndMail() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? userName = pref.getString("username");
+    String? email = pref.getString("email");
+    return {"username": userName!, "email": email!};
+  }
 }

@@ -10,3 +10,4 @@ final Color kRedColor = Color(0xffFD3C4A);
 final Color kYellowColor = Color(0xffFCAC12);
 final Color kLightYellowColor = Color(0xffF9DB9F);
 final Color kOrangeColor = Color(0xffFFCF99);
+final Color kLightPurpleColor = Color(0xff7F3DFF).withValues(alpha: 0.37);

@@ -3,7 +3,7 @@ import 'package:expence_app/constants/paddings.dart';
 import 'package:expence_app/data/onboarding_model_data.dart';
 import 'package:expence_app/screens/onboarding/front_page_widget.dart';
 import 'package:expence_app/screens/onboarding/shared_onboarding_screen.dart';
-import 'package:expence_app/screens/user_data_screen.dart';
+import 'package:expence_app/screens/onboarding/user_data_screen.dart';
 import 'package:expence_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
