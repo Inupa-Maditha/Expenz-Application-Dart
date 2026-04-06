@@ -1,7 +1,7 @@
 import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/screens/add_new_screen.dart';
 import 'package:expence_app/screens/budget_screen.dart';
-import 'package:expence_app/screens/home_screen.dart';
+//import 'package:expence_app/screens/home_screen.dart';
 import 'package:expence_app/screens/profile_screen.dart';
 import 'package:expence_app/screens/transactions_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List displayPage = <Widget>[
-    HomeScreen(),
+    //HomeScreen(),
+    AddNewScreen(),
     TransactionsScreen(),
     AddNewScreen(),
     BudgetScreen(),
