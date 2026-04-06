@@ -1,5 +1,7 @@
 import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/constants/paddings.dart';
+import 'package:expence_app/screens/main_screen.dart';
+import 'package:expence_app/screens/onboarding/user_services.dart';
 import 'package:expence_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
   late String _enteredName;
   late String _enteredEmail;
   late String _enteredPassword;
+  late String _enteredConfermPassword;
   late bool _isPasswordsMatched;
 
   final _isValidName = RegExp(r'^[A-Za-z ]{3,}$');
@@ -139,9 +142,8 @@ class _UserDataScreenState extends State<UserDataScreen> {
                     TextFormField(
                       controller: _confirmPasswordController,
                       validator: (value) {
-                        _enteredPassword = _passwordController.text;
-                        _isPasswordsMatched =
-                            _enteredPassword == _confirmPasswordController.text;
+                        _enteredConfermPassword = _confirmPasswordController.text;
+                        _isPasswordsMatched = _enteredPassword == _enteredConfermPassword;
                         if (!_isPasswordsMatched) {
                           return _confirmPasswordErrorMsg;
                         }
@@ -189,14 +191,27 @@ class _UserDataScreenState extends State<UserDataScreen> {
               ),
               SizedBox(height: kDefaultPadding),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   _formKey.currentState!.validate();
-                  if (_formKey.currentState!.validate()) {
-                    print(_enteredName);
-                    print(_enteredEmail);
-                    print(_isPasswordsMatched);
-                    print(_enteredPassword);
-                    print(_isChecked);
+
+                  if (context.mounted && _isValidPassword.hasMatch(_enteredPassword)) {
+                    await UserServices.storeUserDetail(
+                      username: _enteredName,
+                      email: _enteredEmail,
+                      password: _enteredPassword,
+                      confirmPassword: _enteredConfermPassword,
+                      context: context,
+                    );
+                  }
+                  if (_isValidName.hasMatch(_enteredName) &&
+                      _isValidEmail.hasMatch(_enteredEmail) &&
+                      _isValidPassword.hasMatch(_enteredPassword) &&
+                      _enteredPassword == _enteredConfermPassword) {
+                    Navigator.push(
+                      // ignore: use_build_context_synchronously
+                      context,
+                      MaterialPageRoute(builder: (context) => MainScreen()),
+                    );
                   }
                 },
                 child: CustomButton(buttonName: "Next", buttonColor: kMainColor),
