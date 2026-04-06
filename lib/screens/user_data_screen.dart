@@ -1,7 +1,7 @@
 import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/constants/paddings.dart';
 import 'package:expence_app/screens/main_screen.dart';
-import 'package:expence_app/screens/onboarding/user_services.dart';
+import 'package:expence_app/services/user_services.dart';
 import 'package:expence_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 

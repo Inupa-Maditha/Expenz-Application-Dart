@@ -28,4 +28,10 @@ class UserServices {
       }
     }
   }
+
+  static Future<bool> chechUserName() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? username = pref.getString("username");
+    return username != null;
+  }
 }
