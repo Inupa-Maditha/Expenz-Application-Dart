@@ -1,7 +1,7 @@
 import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/screens/add_new_screen.dart';
 import 'package:expence_app/screens/budget_screen.dart';
-//import 'package:expence_app/screens/home_screen.dart';
+import 'package:expence_app/screens/home_screen.dart';
 import 'package:expence_app/screens/profile_screen.dart';
 import 'package:expence_app/screens/transactions_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +16,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List displayPage = <Widget>[
-    //HomeScreen(),
     AddNewScreen(),
+    HomeScreen(),
     TransactionsScreen(),
-    AddNewScreen(),
+    //AddNewScreen(),
     BudgetScreen(),
     ProfileScreen(),
   ];
@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: kWhiteColor,
+        backgroundColor: kWhiteColor.withAlpha(150),
         selectedItemColor: kMainColor,
         unselectedItemColor: kGrayColor,
         selectedLabelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
