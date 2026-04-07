@@ -23,6 +23,7 @@ class Expense {
   final String title;
   final double amount;
   final ExpenseCategories category;
+  final DateTime date;
   final DateTime time;
   final String description;
 
@@ -31,7 +32,36 @@ class Expense {
     required this.title,
     required this.amount,
     required this.category,
+    required this.date,
     required this.time,
     required this.description,
   });
+
+  //Dart object to JSON
+
+  Map<String, dynamic> toJSON() {
+    return {
+      'id': id,
+      'title': title,
+      'amount': amount,
+      'category': category.index,
+      'date': date.toIso8601String(),
+      'time': time.toIso8601String(),
+      'description': description,
+    };
+  }
+
+  //JSON to Dart object
+
+  factory Expense.fromJSON(Map<String, dynamic> json) {
+    return Expense(
+      id: json['id'],
+      title: json['title'],
+      amount: json['amount'],
+      category: ExpenseCategories.values[json['category']],
+      date: DateTime.parse(json['date']),
+      time: DateTime.parse(json['time']),
+      description: json['description'],
+    );
+  }
 }
