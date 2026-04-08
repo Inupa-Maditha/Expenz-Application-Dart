@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 enum ExpenseCategories { food, transport, health, shopping, subscriptions }
 
-final Map<ExpenseCategories, String> incomeCategoryImages = {
+final Map<ExpenseCategories, String> expenseCategoryImages = {
   ExpenseCategories.food: "assets/images/restaurant.png",
   ExpenseCategories.transport: "assets/images/car.png",
   ExpenseCategories.health: "assets/images/health.png",
@@ -10,7 +10,7 @@ final Map<ExpenseCategories, String> incomeCategoryImages = {
   ExpenseCategories.subscriptions: "assets/images/bill.png",
 };
 
-final Map<ExpenseCategories, Color> incomeCategoryColor = {
+final Map<ExpenseCategories, Color> expenseCategoryColor = {
   ExpenseCategories.food: Color(0xffE57373),
   ExpenseCategories.transport: Color(0xff81C784),
   ExpenseCategories.health: Color(0xff64B5F6),

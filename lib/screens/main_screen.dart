@@ -16,7 +16,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List displayPage = <Widget>[
-    //AddNewScreen(),
+    //TransactionsScreen(),
     HomeScreen(),
     TransactionsScreen(),
     AddNewScreen(),
