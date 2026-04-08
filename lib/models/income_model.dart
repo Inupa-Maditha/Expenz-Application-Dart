@@ -57,9 +57,9 @@ class Income {
       title: json['title'].toString(),
       amount: json['amount'],
       category: IncomeCategory.values[json['category']],
-      date: DateTime(json['date']),
-      time: DateTime(json['time']),
-      description: json['title'].toString(),
+      date: DateTime.parse(json['date']),
+      time: DateTime.parse(json['time']),
+      description: json['description'].toString(),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:expence_app/constants/paddings.dart';
 import 'package:expence_app/models/expense_model.dart';
 import 'package:expence_app/models/income_model.dart';
 import 'package:expence_app/services/expence_services.dart';
+import 'package:expence_app/services/income_service.dart';
 import 'package:expence_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -304,11 +305,11 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                     (value != null)
                                         ? setState(() {
                                             _selectedTime = DateTime(
-                                              value.hour,
-                                              value.minute,
                                               _selectedDate.year,
                                               _selectedDate.month,
                                               _selectedDate.day,
+                                              value.hour,
+                                              value.minute,
                                             );
                                           })
                                         : _selectedTime;
@@ -370,22 +371,44 @@ class _AddNewScreenState extends State<AddNewScreen> {
                           SizedBox(height: 20),
                           GestureDetector(
                             onTap: () async {
-                              List<Expense> expenseList = await ExpenceServices()
-                                  .loadExpense();
+                              if (_selectedmethode == 0) {
+                                List<Income> list = await IncomeServices().getIncome();
 
-                              Expense expense = Expense(
-                                id: expenseList.length + 1,
-                                title: _nameController.text,
-                                amount: double.parse(_ammountController.text),
-                                category: _expenceCategory,
-                                date: _selectedDate,
-                                time: _selectedTime,
-                                description: _descriptionController.text,
-                              );
+                                Income income = Income(
+                                  id: list.length + 1,
+                                  title: _nameController.text,
+                                  amount: double.parse(_ammountController.text),
+                                  category: _incomeCategory,
+                                  date: _selectedDate,
+                                  time: _selectedTime,
+                                  description: _descriptionController.text,
+                                );
+                                if (context.mounted) {
+                                  IncomeServices().saveIncome(income, context);
+                                }
+                              } else {
+                                List<Expense> expenseList = await ExpenceServices()
+                                    .loadExpense();
 
-                              if (context.mounted) {
-                                ExpenceServices().saveExpences(expense, context);
+                                Expense expense = Expense(
+                                  id: expenseList.length + 1,
+                                  title: _nameController.text,
+                                  amount: double.parse(_ammountController.text),
+                                  category: _expenceCategory,
+                                  date: _selectedDate,
+                                  time: _selectedTime,
+                                  description: _descriptionController.text,
+                                );
+
+                                if (context.mounted) {
+                                  ExpenceServices().saveExpences(expense, context);
+                                }
                               }
+                              _nameController.clear();
+                              _descriptionController.clear();
+                              _ammountController.clear();
+
+                              setState(() {});
                             },
                             child: CustomButton(
                               buttonName: "Add",
