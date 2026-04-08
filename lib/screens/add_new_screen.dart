@@ -4,6 +4,7 @@ import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/constants/paddings.dart';
 import 'package:expence_app/models/expense_model.dart';
 import 'package:expence_app/models/income_model.dart';
+import 'package:expence_app/services/expence_services.dart';
 import 'package:expence_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +18,7 @@ class AddNewScreen extends StatefulWidget {
 
 class _AddNewScreenState extends State<AddNewScreen> {
   int _selectedmethode = 0;
+
   IncomeCategory _incomeCategory = IncomeCategory.salary;
   ExpenseCategories _expenceCategory = ExpenseCategories.health;
   DateTime _selectedDate = DateTime.now();
@@ -366,11 +368,31 @@ class _AddNewScreenState extends State<AddNewScreen> {
                             radius: BorderRadius.circular(100),
                           ),
                           SizedBox(height: 20),
-                          CustomButton(
-                            buttonName: "Add",
-                            buttonColor: (_selectedmethode == 0)
-                                ? kGreenColor
-                                : kRedColor,
+                          GestureDetector(
+                            onTap: () async {
+                              List<Expense> expenseList = await ExpenceServices()
+                                  .loadExpense();
+
+                              Expense expense = Expense(
+                                id: expenseList.length + 1,
+                                title: _nameController.text,
+                                amount: double.parse(_ammountController.text),
+                                category: _expenceCategory,
+                                date: _selectedDate,
+                                time: _selectedTime,
+                                description: _descriptionController.text,
+                              );
+
+                              if (context.mounted) {
+                                ExpenceServices().saveExpences(expense, context);
+                              }
+                            },
+                            child: CustomButton(
+                              buttonName: "Add",
+                              buttonColor: (_selectedmethode == 0)
+                                  ? kGreenColor
+                                  : kRedColor,
+                            ),
                           ),
                         ],
                       ),
