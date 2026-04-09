@@ -89,17 +89,17 @@ class _BudgetReportbarCardState extends State<BudgetReportbarCard> {
                   color: kGrayColor.withAlpha(60),
                 ),
               ),
-              Container(
-                height: 10,
-                width:
-                    MediaQuery.of(context).size.width *
-                    widget.categoryTotal /
-                    widget.allCategoriesTotal,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: widget.categoryColor,
+              if (widget.allCategoriesTotal != 0)
+                Container(
+                  height: 10,
+                  width:
+                      MediaQuery.of(context).size.width *
+                      (widget.categoryTotal / widget.allCategoriesTotal),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: widget.categoryColor,
+                  ),
                 ),
-              ),
             ],
           ),
         ],

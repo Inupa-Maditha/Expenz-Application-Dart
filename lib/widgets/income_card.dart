@@ -28,6 +28,13 @@ class IncomeCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: kGrayColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5,
+            color: kGrayColor.withValues(alpha: 0.6),
+            blurStyle: BlurStyle.outer,
+          ),
+        ],
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: kDefaultPadding * 0.8),

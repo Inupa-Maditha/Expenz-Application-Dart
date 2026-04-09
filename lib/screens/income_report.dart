@@ -1,6 +1,7 @@
 import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/models/income_model.dart';
 import 'package:expence_app/services/income_service.dart';
+import 'package:expence_app/widgets/budget_reportbar_card.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -88,31 +89,31 @@ class _IncomeReportState extends State<IncomeReport> {
                               PieChartSectionData(
                                 color: incomeCategoryColor[IncomeCategory.freelance],
                                 value: totalFreelance,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                               PieChartSectionData(
                                 color: incomeCategoryColor[IncomeCategory.salary],
                                 value: totalSalary,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                               PieChartSectionData(
                                 color: incomeCategoryColor[IncomeCategory.passive],
                                 value: totalPassive,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                               PieChartSectionData(
                                 color: incomeCategoryColor[IncomeCategory.sales],
                                 value: totalSales,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                             ],
                             centerSpaceRadius: 80,
                             sectionsSpace: 0,
-                            startDegreeOffset: 0,
+                            startDegreeOffset: -90,
                             centerSpaceColor: Colors.transparent,
                           ),
                         ),
@@ -120,6 +121,34 @@ class _IncomeReportState extends State<IncomeReport> {
                     ],
                   ),
           ),
+        ),
+        BudgetReportbarCard(
+          selectedTab: 1,
+          categoryColor: incomeCategoryColor[IncomeCategory.freelance]!,
+          categoryName: 'Freelance',
+          categoryTotal: totalFreelance,
+          allCategoriesTotal: total,
+        ),
+        BudgetReportbarCard(
+          selectedTab: 1,
+          categoryColor: incomeCategoryColor[IncomeCategory.salary]!,
+          categoryName: 'Salary',
+          categoryTotal: totalSalary,
+          allCategoriesTotal: total,
+        ),
+        BudgetReportbarCard(
+          selectedTab: 1,
+          categoryColor: incomeCategoryColor[IncomeCategory.passive]!,
+          categoryName: 'Passive',
+          categoryTotal: totalPassive,
+          allCategoriesTotal: total,
+        ),
+        BudgetReportbarCard(
+          selectedTab: 1,
+          categoryColor: incomeCategoryColor[IncomeCategory.sales]!,
+          categoryName: 'Sales',
+          categoryTotal: totalSales,
+          allCategoriesTotal: total,
         ),
       ],
     );

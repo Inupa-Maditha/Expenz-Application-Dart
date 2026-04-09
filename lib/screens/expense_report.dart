@@ -1,6 +1,7 @@
 import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/models/expense_model.dart';
 import 'package:expence_app/services/expence_services.dart';
+import 'package:expence_app/widgets/budget_reportbar_card.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -92,38 +93,38 @@ class _ExpenseReportState extends State<ExpenseReport> {
                               PieChartSectionData(
                                 color: expenseCategoryColor[ExpenseCategories.food],
                                 value: totalFood,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                               PieChartSectionData(
                                 color: expenseCategoryColor[ExpenseCategories.transport],
                                 value: totalTransport,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                               PieChartSectionData(
                                 color: expenseCategoryColor[ExpenseCategories.health],
                                 value: totalHealth,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                               PieChartSectionData(
                                 color: expenseCategoryColor[ExpenseCategories.shopping],
                                 value: totalShopping,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                               PieChartSectionData(
                                 color:
                                     expenseCategoryColor[ExpenseCategories.subscriptions],
                                 value: totalSubscriptions,
-                                radius: 20,
+                                radius: 40,
                                 showTitle: false,
                               ),
                             ],
                             centerSpaceRadius: 80,
                             sectionsSpace: 0,
-                            startDegreeOffset: 0,
+                            startDegreeOffset: -90,
                             centerSpaceColor: Colors.transparent,
                           ),
                         ),
@@ -131,6 +132,41 @@ class _ExpenseReportState extends State<ExpenseReport> {
                     ],
                   ),
           ),
+        ),
+        BudgetReportbarCard(
+          selectedTab: 0,
+          categoryColor: expenseCategoryColor[ExpenseCategories.food]!,
+          categoryName: 'Food',
+          categoryTotal: totalFood,
+          allCategoriesTotal: total,
+        ),
+        BudgetReportbarCard(
+          selectedTab: 0,
+          categoryColor: expenseCategoryColor[ExpenseCategories.transport]!,
+          categoryName: 'Transport',
+          categoryTotal: totalTransport,
+          allCategoriesTotal: total,
+        ),
+        BudgetReportbarCard(
+          selectedTab: 0,
+          categoryColor: expenseCategoryColor[ExpenseCategories.health]!,
+          categoryName: 'Health',
+          categoryTotal: totalHealth,
+          allCategoriesTotal: total,
+        ),
+        BudgetReportbarCard(
+          selectedTab: 0,
+          categoryColor: expenseCategoryColor[ExpenseCategories.shopping]!,
+          categoryName: 'Shopping',
+          categoryTotal: totalShopping,
+          allCategoriesTotal: total,
+        ),
+        BudgetReportbarCard(
+          selectedTab: 0,
+          categoryColor: expenseCategoryColor[ExpenseCategories.subscriptions]!,
+          categoryName: 'Subscriptions',
+          categoryTotal: totalSubscriptions,
+          allCategoriesTotal: total,
         ),
       ],
     );
