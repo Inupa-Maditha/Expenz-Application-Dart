@@ -25,10 +25,14 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     setState(() {});
   }
 
-  Future<void> deleteItem(int index) async {
-    await ExpenceServices().deleteExpense(index, context);
+  Future<void> deleteExpence(int id) async {
+    await ExpenceServices().deleteExpense(id, context);
     await getList();
-    setState(() {});
+  }
+
+  Future<void> deleteIncone(int id) async {
+    await IncomeServices().deleteIncome(id, context);
+    await getList();
   }
 
   @override
@@ -76,7 +80,8 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                           return Dismissible(
                             key: ValueKey(expenceList[index]),
                             direction: DismissDirection.startToEnd,
-                            onDismissed: (direction) => deleteItem(expenceList[index].id),
+                            onDismissed: (direction) =>
+                                deleteExpence(expenceList[index].id),
                             child: ExpenceCard(
                               amount: expenceList[index].amount,
                               description: expenceList[index].description,
@@ -106,7 +111,20 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                       scrollDirection: Axis.vertical,
                       itemCount: incomeList.length,
                       itemBuilder: (context, index) {
-                        return IncomeCard();
+                        return Dismissible(
+                          key: ValueKey(incomeList[index].id),
+                          direction: DismissDirection.startToEnd,
+                          onDismissed: (direction) {
+                            deleteIncone(incomeList[index].id);
+                          },
+                          child: IncomeCard(
+                            amount: incomeList[index].amount,
+                            category: incomeList[index].category,
+                            description: incomeList[index].description,
+                            time: incomeList[index].time,
+                            title: incomeList[index].title,
+                          ),
+                        );
                       },
                     ),
                   ),

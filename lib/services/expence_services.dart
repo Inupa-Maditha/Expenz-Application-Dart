@@ -85,14 +85,14 @@ class ExpenceServices {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             duration: Duration(seconds: 1),
-            content: Text("Successfully removed item"),
+            content: Text("Successfully delete expence"),
           ),
         );
       }
     } catch (error) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(duration: Duration(seconds: 1), content: Text("Error remove")),
+          SnackBar(duration: Duration(seconds: 1), content: Text("Expence delete error")),
         );
       }
     }

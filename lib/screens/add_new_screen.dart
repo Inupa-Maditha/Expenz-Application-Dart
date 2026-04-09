@@ -161,6 +161,9 @@ class _AddNewScreenState extends State<AddNewScreen> {
                         children: [
                           SizedBox(height: kDefaultPadding),
                           DropdownButtonFormField(
+                            initialValue: (_selectedmethode == 0)
+                                ? _incomeCategory
+                                : _expenceCategory,
                             decoration: InputDecoration(
                               hintText: "Category",
                               border: OutlineInputBorder(

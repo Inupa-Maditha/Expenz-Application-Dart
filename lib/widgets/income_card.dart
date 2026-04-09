@@ -2,20 +2,21 @@ import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/constants/paddings.dart';
 import 'package:expence_app/models/income_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class IncomeCard extends StatelessWidget {
-  // final String title;
-  // final DateTime date;
-  // final double amount;
-  // final ExpenseCategories category;
-  // final String description;
+  final String title;
+  final DateTime time;
+  final double amount;
+  final IncomeCategory category;
+  final String description;
   const IncomeCard({
     super.key,
-    // required this.title,
-    // required this.date,
-    // required this.amount,
-    // required this.category,
-    // required this.description,
+    required this.title,
+    required this.time,
+    required this.amount,
+    required this.category,
+    required this.description,
   });
 
   @override
@@ -36,10 +37,13 @@ class IncomeCard extends StatelessWidget {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: incomeCategoryColor[IncomeCategory.salary]!.withValues(alpha: 0.5),
+                color: incomeCategoryColor[category]!.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(kDefaultPadding),
               ),
-              child: Image.asset(incomeCategoryImages[IncomeCategory.salary]!),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset(incomeCategoryImages[category]!),
+              ),
             ),
             SizedBox(width: kDefaultPadding),
             Expanded(
@@ -50,21 +54,31 @@ class IncomeCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Shopping",
+                        title,
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                       ),
-                      Text("+\$120", style: TextStyle(fontSize: 20, color: kGreenColor)),
+                      Text(
+                        "+\$${amount.toString()}",
+                        style: TextStyle(fontSize: 20, color: kGreenColor),
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Buy Some Grocery",
-                        style: TextStyle(color: kGrayColor, fontWeight: FontWeight.w400),
+                      SizedBox(
+                        width: 120,
+                        child: Text(
+                          description,
+                          style: TextStyle(
+                            color: kGrayColor,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       Text(
-                        "10:00 AM",
+                        DateFormat('hh:mm a').format(time),
                         style: TextStyle(color: kGrayColor, fontWeight: FontWeight.w400),
                       ),
                     ],
