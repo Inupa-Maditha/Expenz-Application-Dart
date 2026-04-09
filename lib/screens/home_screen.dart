@@ -1,7 +1,13 @@
 import 'package:expence_app/constants/colors.dart';
 import 'package:expence_app/constants/paddings.dart';
+import 'package:expence_app/models/expense_model.dart';
+import 'package:expence_app/models/income_model.dart';
+import 'package:expence_app/services/expence_services.dart';
+import 'package:expence_app/services/income_service.dart';
 import 'package:expence_app/services/user_services.dart';
+import 'package:expence_app/widgets/expence_card.dart';
 import 'package:expence_app/widgets/income_expense_card.dart';
+import 'package:expence_app/widgets/line_chart_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,10 +18,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Expense> expenceList = [];
+  List<Income> incomeList = [];
+
   String userName = "";
+  double totalExpence = 0;
+  double totalIncome = 0;
+
+  Future<void> getItems() async {
+    expenceList = await ExpenceServices().loadExpense();
+    incomeList = await IncomeServices().getIncome();
+
+    for (int i = 0; i < (expenceList.length); i++) {
+      totalExpence += expenceList[i].amount;
+    }
+    for (int i = 0; i < (incomeList.length); i++) {
+      totalIncome += incomeList[i].amount;
+    }
+    setState(() {});
+  }
 
   @override
   void initState() {
+    super.initState();
+    getItems();
     UserServices.getUserNameAndMail().then((value) {
       if (value['username'] != null) {
         setState(() {
@@ -23,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       }
     });
-    super.initState();
   }
 
   @override
@@ -91,13 +116,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IncomeExpenseCard(
-                            ammount: 5000,
+                            ammount: totalIncome,
                             bgColor: kGreenColor,
                             title: "Income",
                             imgUrl: "assets/images/income.png",
                           ),
                           IncomeExpenseCard(
-                            ammount: 1200,
+                            ammount: totalExpence,
                             bgColor: kRedColor,
                             title: "Expenses",
                             imgUrl: "assets/images/expense.png",
@@ -111,7 +136,74 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: EdgeInsets.all(kDefaultPadding),
-              child: Column(children: [Container(color: kBlackColor, height: 20)]),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Spend Frequency",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(height: kDefaultPadding, width: double.infinity),
+                  LineChartWidget(),
+                  SizedBox(height: kDefaultPadding),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Recent transaction",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          height: 36,
+                          width: 84,
+                          decoration: BoxDecoration(
+                            color: kMainColor.withAlpha(50),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "See All",
+                              style: TextStyle(
+                                color: kMainColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  (expenceList.isEmpty)
+                      ? Padding(
+                          padding: EdgeInsets.only(top: kDefaultPadding * 2),
+                          child: Text(
+                            "No Expences Added Yet, Add Some Expences To See Here.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18, color: kGrayColor),
+                          ),
+                        )
+                      : ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: expenceList.length,
+                          itemBuilder: (context, index) {
+                            return ExpenceCard(
+                              title: expenceList[index].title,
+                              time: expenceList[index].time,
+                              amount: expenceList[index].amount,
+                              category: expenceList[index].category,
+                              description: expenceList[index].description,
+                            );
+                          },
+                        ),
+                ],
+              ),
             ),
           ],
         ),

@@ -71,27 +71,36 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                   height: MediaQuery.of(context).size.height * 0.32,
                   child: SingleChildScrollView(
                     child: SingleChildScrollView(
-                      child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: expenceList.length,
-                        itemBuilder: (context, index) {
-                          return Dismissible(
-                            key: ValueKey(expenceList[index]),
-                            direction: DismissDirection.startToEnd,
-                            onDismissed: (direction) =>
-                                deleteExpence(expenceList[index].id),
-                            child: ExpenceCard(
-                              amount: expenceList[index].amount,
-                              description: expenceList[index].description,
-                              title: expenceList[index].title,
-                              category: expenceList[index].category,
-                              time: expenceList[index].time,
+                      child: (expenceList.isEmpty)
+                          ? Padding(
+                              padding: EdgeInsets.only(top: kDefaultPadding * 2),
+                              child: Text(
+                                "No Expences Added Yet, Add Some Expences To See Here.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 18, color: kGrayColor),
+                              ),
+                            )
+                          : ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: expenceList.length,
+                              itemBuilder: (context, index) {
+                                return Dismissible(
+                                  key: ValueKey(expenceList[index]),
+                                  direction: DismissDirection.startToEnd,
+                                  onDismissed: (direction) =>
+                                      deleteExpence(expenceList[index].id),
+                                  child: ExpenceCard(
+                                    amount: expenceList[index].amount,
+                                    description: expenceList[index].description,
+                                    title: expenceList[index].title,
+                                    category: expenceList[index].category,
+                                    time: expenceList[index].time,
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
                     ),
                   ),
                 ),
@@ -105,28 +114,37 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.32,
                   child: SingleChildScrollView(
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: incomeList.length,
-                      itemBuilder: (context, index) {
-                        return Dismissible(
-                          key: ValueKey(incomeList[index].id),
-                          direction: DismissDirection.startToEnd,
-                          onDismissed: (direction) {
-                            deleteIncone(incomeList[index].id);
-                          },
-                          child: IncomeCard(
-                            amount: incomeList[index].amount,
-                            category: incomeList[index].category,
-                            description: incomeList[index].description,
-                            time: incomeList[index].time,
-                            title: incomeList[index].title,
+                    child: (incomeList.isEmpty)
+                        ? Padding(
+                            padding: EdgeInsets.only(top: kDefaultPadding * 2),
+                            child: Text(
+                              "No Incomes Added Yet, Add Some Incomes To See Here.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18, color: kGrayColor),
+                            ),
+                          )
+                        : ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: incomeList.length,
+                            itemBuilder: (context, index) {
+                              return Dismissible(
+                                key: ValueKey(incomeList[index].id),
+                                direction: DismissDirection.startToEnd,
+                                onDismissed: (direction) {
+                                  deleteIncone(incomeList[index].id);
+                                },
+                                child: IncomeCard(
+                                  amount: incomeList[index].amount,
+                                  category: incomeList[index].category,
+                                  description: incomeList[index].description,
+                                  time: incomeList[index].time,
+                                  title: incomeList[index].title,
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ),
               ],
