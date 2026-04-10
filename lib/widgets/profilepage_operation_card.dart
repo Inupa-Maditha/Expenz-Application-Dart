@@ -36,7 +36,7 @@ class _ProfilepageOperationCardState extends State<ProfilepageOperationCard> {
   };
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
-      backgroundColor: kGrayColor,
+      backgroundColor: kLightBlue,
       context: context,
       builder: (context) {
         return Container(
@@ -47,11 +47,11 @@ class _ProfilepageOperationCardState extends State<ProfilepageOperationCard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Are you sure want to logout",
+                "Are you sure want to logout?",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
-                  color: kBlackColor,
+                  color: kWhiteColor,
                 ),
               ),
               SizedBox(height: 20),
@@ -71,13 +71,21 @@ class _ProfilepageOperationCardState extends State<ProfilepageOperationCard> {
                         );
                       }
                     },
-                    child: Text("Yes"),
+                    style: ElevatedButton.styleFrom(backgroundColor: kRedColor),
+                    child: Text(
+                      "Yes",
+                      style: TextStyle(fontWeight: FontWeight.bold, color: kWhiteColor),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text("No"),
+                    style: ElevatedButton.styleFrom(backgroundColor: kGreenColor),
+                    child: Text(
+                      "No",
+                      style: TextStyle(fontWeight: FontWeight.bold, color: kWhiteColor),
+                    ),
                   ),
                 ],
               ),

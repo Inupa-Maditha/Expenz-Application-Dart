@@ -19,6 +19,8 @@ class AddNewScreen extends StatefulWidget {
 
 class _AddNewScreenState extends State<AddNewScreen> {
   int _selectedmethode = 0;
+  int ammount = 0;
+  final _formKey = GlobalKey<FormState>();
 
   IncomeCategory _incomeCategory = IncomeCategory.salary;
   ExpenseCategories _expenceCategory = ExpenseCategories.health;
@@ -42,121 +44,118 @@ class _AddNewScreenState extends State<AddNewScreen> {
     return Scaffold(
       backgroundColor: (_selectedmethode == 1) ? kRedColor : kGreenColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(top: kDefaultPadding),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    decoration: BoxDecoration(
-                      color: kWhiteColor,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _selectedmethode = 0;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: (_selectedmethode == 0)
-                                  ? kMainColor
-                                  : Colors.transparent,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-                              child: Text(
-                                "Income",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: (_selectedmethode == 0)
-                                      ? kWhiteColor
-                                      : kBlackColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _selectedmethode = 1;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: (_selectedmethode == 1)
-                                  ? kMainColor
-                                  : Colors.transparent,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-                              child: Text(
-                                "Expense",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: (_selectedmethode == 1)
-                                      ? kWhiteColor
-                                      : kBlackColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                  child: Container(
-                    margin: EdgeInsets.only(top: 130),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "How mutch?",
-                          style: TextStyle(color: kWhiteColor, fontSize: 18),
-                        ),
-                        TextField(
-                          style: TextStyle(
-                            fontSize: 72,
-                            fontWeight: FontWeight.w600,
-                            color: kWhiteColor,
-                          ),
-                          decoration: InputDecoration(
-                            hintText: "0",
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(color: kWhiteColor),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 300),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.6,
+        child: Padding(
+          padding: EdgeInsets.only(top: kDefaultPadding),
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
+                  height: MediaQuery.of(context).size.height * 0.06,
                   decoration: BoxDecoration(
                     color: kWhiteColor,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(36)),
+                    borderRadius: BorderRadius.circular(100),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                    child: Form(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedmethode = 0;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: (_selectedmethode == 0)
+                                ? kMainColor
+                                : Colors.transparent,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+                            child: Text(
+                              "Income",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: (_selectedmethode == 0)
+                                    ? kWhiteColor
+                                    : kBlackColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedmethode = 1;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: (_selectedmethode == 1)
+                                ? kMainColor
+                                : Colors.transparent,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+                            child: Text(
+                              "Expense",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: (_selectedmethode == 1)
+                                    ? kWhiteColor
+                                    : kBlackColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                child: Container(
+                  margin: EdgeInsets.only(top: 130),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "How mutch?",
+                        style: TextStyle(color: kWhiteColor, fontSize: 18),
+                      ),
+                      Text(
+                        ammount.toString(),
+                        style: TextStyle(
+                          fontSize: 72,
+                          fontWeight: FontWeight.w600,
+                          color: kWhiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 300),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.6,
+                decoration: BoxDecoration(
+                  color: kWhiteColor,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(36)),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                  child: Form(
+                    key: _formKey,
+                    child: SingleChildScrollView(
                       child: Column(
                         children: [
                           SizedBox(height: kDefaultPadding),
@@ -193,9 +192,15 @@ class _AddNewScreenState extends State<AddNewScreen> {
                             },
                           ),
                           SizedBox(height: kDefaultPadding),
-                          TextField(
-                            keyboardType: TextInputType.text,
+                          TextFormField(
                             controller: _nameController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter A Title";
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               hintText: "Title",
                               border: OutlineInputBorder(
@@ -204,9 +209,15 @@ class _AddNewScreenState extends State<AddNewScreen> {
                             ),
                           ),
                           SizedBox(height: kDefaultPadding),
-                          TextField(
+                          TextFormField(
                             keyboardType: TextInputType.text,
                             controller: _descriptionController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please Enter A Description";
+                              }
+                              return null;
+                            },
                             decoration: InputDecoration(
                               hintText: "Description",
                               border: OutlineInputBorder(
@@ -215,9 +226,22 @@ class _AddNewScreenState extends State<AddNewScreen> {
                             ),
                           ),
                           SizedBox(height: kDefaultPadding),
-                          TextField(
+                          TextFormField(
                             keyboardType: TextInputType.number,
                             controller: _ammountController,
+                            validator: (value) {
+                              int? x = int.tryParse(value ?? '0');
+                              if (!(x != null && x > 0)) {
+                                return "Please Enter A Valid Ammount";
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              int? x = int.tryParse(value);
+                              setState(() {
+                                ammount = (x != null && x > 0) ? x : 0;
+                              });
+                            },
                             decoration: InputDecoration(
                               hintText: "Amonut",
                               border: OutlineInputBorder(
@@ -374,7 +398,8 @@ class _AddNewScreenState extends State<AddNewScreen> {
                           SizedBox(height: 20),
                           GestureDetector(
                             onTap: () async {
-                              if (_selectedmethode == 0) {
+                              if (_selectedmethode == 0 &&
+                                  _formKey.currentState!.validate()) {
                                 List<Income> list = await IncomeServices().getIncome();
 
                                 Income income = Income(
@@ -389,7 +414,8 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                 if (context.mounted) {
                                   IncomeServices().saveIncome(income, context);
                                 }
-                              } else {
+                              } else if (_selectedmethode == 1 &&
+                                  _formKey.currentState!.validate()) {
                                 List<Expense> expenseList = await ExpenceServices()
                                     .loadExpense();
 
@@ -425,8 +451,8 @@ class _AddNewScreenState extends State<AddNewScreen> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
