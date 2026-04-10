@@ -84,7 +84,7 @@ lib/
 
 ## 👨‍💻 Author
 
-**Inupa Maditha**
-GitHub: https://github.com/Inupa-Maditha
+**Inupa Maditha :**
+[GitHub](https://github.com/Inupa-Maditha)
 
 ---
