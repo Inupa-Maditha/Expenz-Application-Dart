@@ -1,9 +1,8 @@
-# 💰 Expense-Application-Dart
+# Expense Application (Flutter)
 
 A modern **Expense Tracker Mobile Application** built using **Flutter**.
 This app helps users manage their income, expenses, and budgets efficiently with a clean and user friendly interface.
 
----
 
 ## 🚀 Features
 
@@ -16,7 +15,6 @@ This app helps users manage their income, expenses, and budgets efficiently with
 * 📱 Clean and responsive UI
 * 🧭 Onboarding screens for new users
 
----
 
 ## 🛠️ Technologies Used
 
@@ -25,7 +23,6 @@ This app helps users manage their income, expenses, and budgets efficiently with
 * Custom UI Widgets
 * Local data handling (services)
 
----
 
 ## 📂 Project Structure
 
@@ -39,7 +36,6 @@ lib/
 └── main.dart         # Entry point
 ```
 
----
 
 ## 📱 Screens
 
@@ -52,7 +48,6 @@ lib/
 * 👤 Profile Screen
 * 🚀 Onboarding Screens
 
----
 
 ## ▶️ How to Run
 
@@ -80,11 +75,8 @@ lib/
    flutter run
    ```
 
----
 
 ## 👨‍💻 Author
 
-**Inupa Maditha :**
-[GitHub](https://github.com/Inupa-Maditha)
+Inupa Maditha - [GitHub](https://github.com/Inupa-Maditha)
 
----
